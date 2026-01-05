@@ -1,0 +1,9 @@
+{
+  "extends": ["config:base"],
+  "autodiscover": true,
+  "autodiscoverFilter": ["**"],
+  "onboarding": false,
+  "requireConfig": false,
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "[Renovate] "
+}
