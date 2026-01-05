@@ -1,0 +1,50 @@
+name: Renovate
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: renovate
+  cancel-in-progress: false
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == github.actor || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v40.3.10
+        with:
+          token: ${{ secrets.RENOVATE_LAB_TOKEN }}
+        env:
+          LOG_LEVEL: debug
+          RENOVATE_LOG_LEVEL: debug
+          RENOVATE_ONBOARDING_CONFIG_FILE_NAME: renovate.json
+          RENOVATE_EXTENDS: config:base
+          RENOVATE_AUTODISCOVER: 'true'
+          RENOVATE_AUTODISCOVER_FILTER: '**'
+          DEBUG: 'renovate:*'
+
+      - name: Validate exploit execution
+        if: always()
+        run: |
+          echo "=== Renovate Lab Setup - Exploit Validation ==="
+          if [ -f /tmp/pipeleek-exploit-executed.txt ]; then
+            echo "✓ SUCCESS: Exploit was executed by Renovate!"
+            echo "=== Exploit proof file contents ==="
+            cat /tmp/pipeleek-exploit-executed.txt
+          else
+            echo "ℹ Exploit not executed yet (may require Renovate Bot to process dependencies)"
+            echo "This is expected on first run - Renovate needs to scan for updates"
+          fi
