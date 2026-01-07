@@ -33,7 +33,7 @@ jobs:
           RENOVATE_ONBOARDING_CONFIG_FILE_NAME: renovate.json
           RENOVATE_EXTENDS: config:base
           RENOVATE_AUTODISCOVER: 'true'
-          RENOVATE_AUTODISCOVER_FILTER: '**'
+          RENOVATE_AUTODISCOVER_FILTER: 'frjcomp/*'
           DEBUG: 'renovate:*'
 
       - name: Validate exploit execution
