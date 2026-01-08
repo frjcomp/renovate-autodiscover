@@ -33,7 +33,7 @@ jobs:
           RENOVATE_ONBOARDING_CONFIG_FILE_NAME: renovate.json
           RENOVATE_EXTENDS: config:base
           RENOVATE_AUTODISCOVER: 'true'
-          RENOVATE_AUTODISCOVER_FILTER: 'frjcomp/privesc-test'
+          RENOVATE_AUTODISCOVER_FILTER: 'frjcomp/testing-auto'
           DEBUG: 'renovate:*'
           RENOVATE_CACHE_DISABLED: true
 
