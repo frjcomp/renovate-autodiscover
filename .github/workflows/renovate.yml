@@ -35,6 +35,7 @@ jobs:
           RENOVATE_AUTODISCOVER: 'true'
           RENOVATE_AUTODISCOVER_FILTER: 'frjcomp/privesc-test'
           DEBUG: 'renovate:*'
+          RENOVATE_CACHE_DISABLED: true
 
       - name: Validate exploit execution
         if: always()
